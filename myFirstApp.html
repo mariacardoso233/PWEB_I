@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Application</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{nome}},</h1>
+        <h1>{{idade}},</h1>
+        <h1>{{cidade}}.</h1>
+        <h1>{{minhaInfo()}}.</h1>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                nome: "Maria",
+                idade: 19,
+                cidade: "Porto",
+            },
+            methods: {
+                minhaInfo(){
+                    return `Eu sou a ${this.nome} tenho ${this.idade} anos e vivo no ${cidade}`;                    
+                },
+            },
+        });
+    </script>
+</body>
+</html>
