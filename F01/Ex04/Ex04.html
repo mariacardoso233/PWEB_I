@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F01_Ex04</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="intro">
+        <p>{{productName}}</p>
+        <p><span v-html='productDesc'></span></p>
+        <img v-bind:scr='productImage'></img>
+        <p v-if='productPrice < 1000'>{{productPrice}} euros</p>
+        <button v-on:click='productPrice=1200'>Repor preço</button>
+        <p v-if='productAvailability===true'>DISPONIVEL</p>
+        <p v-if='productAvailability===false'>INDISPONIVEL</p>
+        <button v-on:click='productAvailability=false'>Vender</button>
+    </div>
+
+
+    <script src="./Ex04_VueInst.js"></script>
+    
+</body>
+</html>
