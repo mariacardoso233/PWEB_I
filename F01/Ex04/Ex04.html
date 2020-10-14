@@ -9,13 +9,15 @@
 <body>
     <div id="intro">
         <p>{{productName}}</p>
-        <p><span v-html='productDesc'></span></p>
+        <p><span v-html='productDesc'></span></p>  <!-- diretiva v-html para ler o "br" -->
         <img v-bind:scr='productImage'></img>
-        <p v-if='productPrice < 1000'>{{productPrice}} euros</p>
+        <p v-if='productPrice < 1000'>Preço: {{productPrice}} €</p>
         <button v-on:click='productPrice=1200'>Repor preço</button>
-        <p v-if='productAvailability===true'>DISPONIVEL</p>
-        <p v-if='productAvailability===false'>INDISPONIVEL</p>
-        <button v-on:click='productAvailability=false'>Vender</button>
+
+        <p v-if='productAvailability'>DISPONIVEL</p>
+        <p v-else>NÃO DISPONIVEL</p>
+
+        <button v-bind:disabled='!productAvailability' v-on:click='productAvailability=false'>Vender</button>
     </div>
 
 

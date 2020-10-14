@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F02 - Ex01</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button v-bind:disabled='num == 0' v-on:click='down()'>-</button>
+        <span>{{num}}</span>
+        <button v-on:click='up()'>+</button>
+        <h2>{{message}}</h2>
+    </div>
+
+
+    <script src="./Ex01_Vue.js"></script>
+</body>
+
+</html>
