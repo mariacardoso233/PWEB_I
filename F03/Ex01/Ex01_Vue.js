@@ -30,7 +30,7 @@ const vm = new Vue({
         }
     },
     watch: {
-        uploadAge(){
+        uploadAge(age,){
 
         }
     }
