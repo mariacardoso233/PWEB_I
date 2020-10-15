@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F04 - Ex01</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    
+    <div id='intro'>
+        <h2 :style="{color:fontColor, fontSize:textSize,backgroundColor:bColor,visibility:visivel}">{{msg}}</h2>
+        <!--v-on: click="changeColor('red')"-->
+        <button v-on:click="changeColor('red')">RED</button>
+        <button v-on:click="changeSize('30pt')">BIG</button>
+        <button v-on:click="changeBColor('yellow')">YELLOW</button>
+        <button v-on:click="changeVisibility()">SHOW/HIDE</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#intro",
+            data: {
+                msg: 'A ESMAD é uma escola do IPP',
+                
+                    fontColor: null,
+                    textSize: null,
+                    bColor: null,
+                    visivel: null
+            },
+
+            computed:{
+            },
+
+            methods: {
+                changeColor(color){
+                    this.fontColor = color;
+                },
+                changeSize(size){
+                    this.textSize = size;
+                },
+                changeBColor(color){
+                    this.bColor = color;
+                },
+                changeVisibility(){
+                    if (this.visivel == 'visible') {
+                        this.visivel = 'hidden'
+                    } else {
+                        this.visivel = 'visible'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
