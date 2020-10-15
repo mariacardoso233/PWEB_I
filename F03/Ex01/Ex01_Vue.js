@@ -1,7 +1,8 @@
 const vm = new Vue({
     el: '#intro',
     data: {
-        person: { firstName: 'Rui', lastName: 'Silva', age: 23 }
+        person: { firstName: 'Rui', lastName: 'Silva', age: 23 },
+        balance: 4432,
     },
     created() {
         console.log('EVENTO: CRIAÇÃO');
@@ -30,8 +31,8 @@ const vm = new Vue({
         }
     },
     watch: {
-        uploadAge(age,){
-
+        'person.age'(){
+            console.log('Idade alterada!');
         }
     }
 })
