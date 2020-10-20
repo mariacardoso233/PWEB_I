@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F04 - Ex02</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+
+    <div id='intro'>
+        <span v-if='schools.length==0'>SEM ESCOLAS</span>
+        <ul v-else>
+            <h2>{{schools.length}} escolas do IPP</h2>
+            <p v-for="school in filterSchools">
+                {{school}}
+            </p>
+        </ul>
+
+        <button v-on:click="addSchool('ESMAE')">ADICIONAR ESCOLA</button>
+        <button v-on:click="filterSchool('E')">FILTRAR ESCOLA</button>
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#intro',
+            data: {
+                schools: ['ESMAD', 'ISEP', 'ESE', 'ISCAP', 'ESTG', 'ESS', 'ESHT'],
+                char: ""
+            },
+
+            methods: {
+                addSchool(school) {
+                    if (!this.schools.includes(school)) {
+                        this.schools.push(school)
+                    }
+                },
+                filterSchool(char) {
+                    this.char = char
+                }
+            },
+            computed: {
+                filterSchools() {
+                    return this.schools.filter(
+                        (school) => school.startsWith(this.char)
+                    )
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

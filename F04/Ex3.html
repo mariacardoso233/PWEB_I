@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F04 - Ex03</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+        table, td, th {
+            border: 1px solid black;
+            border-collapse: collapse
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id='intro'>
+        
+        <ul>
+            <li v-for="team in teams">
+                Name: {{team.name}} AND year: {{team.year}}
+            </li>
+        </ul>
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Year</th>
+            </tr>
+            <tr v-for="(team,index) in listFilterTeams">
+                <td>{{index+1}}</td>
+                <td>{{team.name}}</td>
+                <td>{{team.year}}</td>
+            </tr>
+        </table>
+
+        <button v-on:click="addTeam('Braga',1923)">ADICIONAR EQUIPA</button>
+        <button v-on:click="filterTeam('Lisboa')">FILTRAR EQUIPA</button>
+    </div>
+
+
+
+    <script>
+        const vm = new Vue({
+            el: '#intro',
+            data: {
+                teams: [
+                    { name: 'benfica', year: 1910, location: 'Lisboa'},
+                    { name: 'porto', year: 1912, location: 'Porto'},
+                    { name: 'sporting', year: 1914, location: 'Lisboa'},
+                ],
+                location: ""
+            },
+            methods: {
+                addTeam(name, year) {
+                        this.teams.push({name: name, year: year})
+                },
+                filterTeam(location) {
+                    this.location = location
+                }
+            },
+            computed: {
+                listFilterTeam() {
+                    return this.teams.filter(
+                        (team) => team.location === this.location
+                    )
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
