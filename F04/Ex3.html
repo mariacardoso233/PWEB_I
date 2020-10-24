@@ -7,7 +7,9 @@
     <title>F04 - Ex03</title>
     <script src="https://unpkg.com/vue"></script>
     <style>
-        table, td, th {
+        table,
+        td,
+        th {
             border: 1px solid black;
             border-collapse: collapse
         }
@@ -17,27 +19,31 @@
 <body>
 
     <div id='intro'>
-        
+
         <ul>
             <li v-for="team in teams">
                 Name: {{team.name}} AND year: {{team.year}}
             </li>
         </ul>
+
+        <button v-on:click="addTeam('Braga',1923,'braga')">ADICIONAR EQUIPA</button>
+        <button v-on:click="filterLocation('lisboa')">FILTRAR EQUIPA</button>
+
         <table>
             <tr>
                 <th>#</th>
                 <th>Name</th>
                 <th>Year</th>
+                <th>Location</th>
             </tr>
-            <tr v-for="(team,index) in listFilterTeams">
+            <tr v-for="(team,index) in filteredTeams">
                 <td>{{index+1}}</td>
                 <td>{{team.name}}</td>
                 <td>{{team.year}}</td>
+                <td>{{team.location}}</td>
             </tr>
         </table>
 
-        <button v-on:click="addTeam('Braga',1923)">ADICIONAR EQUIPA</button>
-        <button v-on:click="filterTeam('Lisboa')">FILTRAR EQUIPA</button>
     </div>
 
 
@@ -47,24 +53,28 @@
             el: '#intro',
             data: {
                 teams: [
-                    { name: 'benfica', year: 1910, location: 'Lisboa'},
-                    { name: 'porto', year: 1912, location: 'Porto'},
-                    { name: 'sporting', year: 1914, location: 'Lisboa'},
+                    { name: 'benfica', year: 1910, location: 'lisboa' },
+                    { name: 'porto', year: 1912, location: 'porto' },
+                    { name: 'sporting', year: 1914, location: 'lisboa' },
                 ],
-                location: ""
+                location: ''
             },
             methods: {
-                addTeam(name, year) {
-                        this.teams.push({name: name, year: year})
+                addTeam(teamName, teamYear, teamLocation) {
+                    const newTeam = {
+                        name: teamName,
+                        year: teamYear,
+                        location: teamLocation}
+                    this.teams.push(newTeam)
                 },
-                filterTeam(location) {
-                    this.location = location
+                filterLocation(newLocation) {
+                    this.location = newLocation
                 }
             },
-            computed: {
-                listFilterTeam() {
+            computed:{
+                filteredTeams(){
                     return this.teams.filter(
-                        (team) => team.location === this.location
+                        team => team.location === this.location || this.location == ''
                     )
                 }
             }
