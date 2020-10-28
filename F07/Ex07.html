@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha 07</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <h1>myTravels</h1>
+        <form @submit.prevent='addTravel'>
+            <!--CONTINENTES-->
+            <label for="sltContinent">CONTINENTE</label>
+            <select id="sltContinent" v-model='frm.continent'>
+                <option value="europe">EUROPA</option>
+                <option value="africa">AFRICA</option>
+                <option value="asia">ÁSIA</option>
+                <option value="america">AMÉRICA</option>
+                <option value="oceania">OCEANIA</option>
+            </select>
+            <br>
+
+            <!--PAÍSES-->
+            <label for="txtCountry">PAÍS</label>
+            <input type="text" id="txtCountry"><br>
+
+            <!--CIDADES-->
+            <label for="txtCities">CIDADES:</label>
+            <input type="text" id="txtCities"><br>
+            <small>Liste as cidades separadas por vírgulas</small><br><br>
+
+            <!--DESCRIÇÃO-->
+            <label for="txtDescription">DESCRIÇÃO</label><br>
+            <textarea id="txtDescription" cols="30" rows="10"></textarea><br>
+
+            <!--DATA DE PARTIDA E CHEGADA-->
+            <label for="txtStartDate">DATA DE PARTIDA</label><br>
+            <input type="date" id="txtStartDate"><br>
+            <label for="txtEndDate">DATA DE CHEGADA</label><br>
+            <input type="date" id="txtEndDate"><br><br>
+
+            <!--TIPO DA VIAGEM-->
+            <input type="radio" id="rdHolidays" value="holidays" v-model='frm.type'>
+            <label for="rdHolidays">FÉRIAS</label>
+            <input type="radio" id="rdBusiness" value="business" v-model='frm.type'>
+            <label for="rdBusiness">NEGÓCIOS</label><br><br>
+
+            <!--LINK-->
+            <label for="txtPhoto">FOTO:</label>
+            <input type="url" id="txtPhoto">
+            <br><br>
+
+            <input type="submit" value="ADICIONAR VIAGEM">
+        </form>
+    </div>
+
+    <script src="./Ex_Vue-Inst.js"></script>
+
+</body>
+
+</html>
