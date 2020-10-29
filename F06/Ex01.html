@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyToDo</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <form v-on:submit.prevent='addTask'>
+            <label for="txtTask">TAREFA: </label>
+            <input type="text" id="txtTask" v-model='task'>
+            <br>
+            <label for="txtTask">TIPO: </label>
+            <input type="radio" id="rdTypePersonal" v-model='type' value="pessoal">PESSOAL
+            <input type="radio" id="rdTypeProfesional" v-model='type' value="professional">PROFISSIONAL
+            <br>
+            <input type="submit" value="ADICIONAR TAREFA">
+        </form>
+        <br>
+
+        <div v-if='tasks.length == 0 '>SEM TAREFAS !</div>
+        <div v-else>
+            FILTRO: <select id="sltFilter" v-model='filter'>
+                <option value="">TODAS</option>
+                <option value="pessoal">PESSOAL</option>
+                <option value="professional">PROFISSIONAL</option>
+            </select>
+            <br><br>
+            <table>
+                <tr>
+                    <th>#ID</th>
+                    <th>TAREFA</th>
+                    <th>TIPO</th>
+                </tr>
+                <tr v-for='task in filterTasks'>
+                    <td>{{task.id}}</td>
+                    <td>{{task.name}}</td>
+                    <td>{{task.type}}</td>
+                    <td><button v-on:click='removeTask(task.id)'>REMOVER</button></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <script src="./Ex1_Vue-Inst.js"></script>
+</body>
+
+</html>
