@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha 07</title>
+    <title>Ficha 07 - Travels</title>
     <script src="https://unpkg.com/vue"></script>
 </head>
 
@@ -12,51 +12,113 @@
 
     <div id="app">
         <h1>myTravels</h1>
+        <br>
         <form @submit.prevent='addTravel'>
-            <!--CONTINENTES-->
-            <label for="sltContinent">CONTINENTE</label>
+            <!--CONTINENTE-->
+            <label for="sltContinent">CONTINENTE:</label>
             <select id="sltContinent" v-model='frm.continent'>
                 <option value="europe">EUROPA</option>
-                <option value="africa">AFRICA</option>
+                <option value="africa">ÁFRICA</option>
                 <option value="asia">ÁSIA</option>
                 <option value="america">AMÉRICA</option>
                 <option value="oceania">OCEANIA</option>
-            </select>
-            <br>
+            </select><br>
 
-            <!--PAÍSES-->
-            <label for="txtCountry">PAÍS</label>
-            <input type="text" id="txtCountry"><br>
+            <!--PAÍS-->
+            <label for="txtCountry">PAÍS:</label>
+            <input type="text" id="txtCountry" v-model='frm.country'><br>
 
             <!--CIDADES-->
             <label for="txtCities">CIDADES:</label>
-            <input type="text" id="txtCities"><br>
-            <small>Liste as cidades separadas por vírgulas</small><br><br>
+            <input type="text" id="txtCities" v-model='frm.cities'><br>
+            <small>liste as cidades separadas por vírgulas</small><br><br>
 
             <!--DESCRIÇÃO-->
-            <label for="txtDescription">DESCRIÇÃO</label><br>
-            <textarea id="txtDescription" cols="30" rows="10"></textarea><br>
-
-            <!--DATA DE PARTIDA E CHEGADA-->
-            <label for="txtStartDate">DATA DE PARTIDA</label><br>
-            <input type="date" id="txtStartDate"><br>
-            <label for="txtEndDate">DATA DE CHEGADA</label><br>
-            <input type="date" id="txtEndDate"><br><br>
-
-            <!--TIPO DA VIAGEM-->
-            <input type="radio" id="rdHolidays" value="holidays" v-model='frm.type'>
-            <label for="rdHolidays">FÉRIAS</label>
-            <input type="radio" id="rdBusiness" value="business" v-model='frm.type'>
-            <label for="rdBusiness">NEGÓCIOS</label><br><br>
-
-            <!--LINK-->
-            <label for="txtPhoto">FOTO:</label>
-            <input type="url" id="txtPhoto">
+            <label for="txtDescription"></label>
+            <textarea id="txtDescription" cols="40" rows="10"></textarea>
             <br><br>
 
+            <!--DATA DE PARTIDA E CHEGADA-->
+            <label for="txtStartDate">DATA DE PARTIDA:</label>
+            <input type="date" id="txtStartDate" v-model='frm.startDate'><br>
+            <label for="txtEndDate">DATA DE CHEGADA:</label>
+            <input type="date" id="txtEndDate" v-model='frm.endDate'><br><br>
+
+            <!--TIPO DA VIAGEM-->
+            <input type="radio" id="rdVacation" value="holidays" v-model='frm.type'>FÉRIAS
+            <input type="radio" id="rdBusiness" value="business" v-model='frm.type'>NEGÓCIOS
+            <br><br>
+
+            <!--FOTO-->
+            <label for="txtLinkPhoto">FOTO:</label>
+            <input type="text" id="txtLinkPhoto" v-model='frm.photo'><br>
+
+            <br>
             <input type="submit" value="ADICIONAR VIAGEM">
         </form>
+        <br><br>
+
+        <div id="listTravels">
+            <div v-if='travels.length === 0 '>
+                SEM VIAGENS!
+            </div>
+            <div v-else>
+                <!--FILTROS-->
+                <div id="filterTravels">
+                    <!--CONTINENT-->
+                    <label for="sltFilterContinent">CONTINENTE:</label>
+                    <select id="sltFilterContinent" v-model='frm.filter.continent'>
+                        <option value="">TODOS</option>
+                        <option value="europe">EUROPA</option>
+                        <option value="africa">ÁFRICA</option>
+                        <option value="asia">ÁSIA</option>
+                        <option value="america">AMÉRICA</option>
+                        <option value="oceania">OCEANIA</option>
+                    </select><br>
+
+                    <!--START & END DATE-->
+                    <label for="txtStartDate">DATA DE PARTIDA:</label><br>
+                    <input type="date" id="txtStartDate" v-model='frm.filter.startDate'><br>
+                    <label for="txtEndDate">DATA DE CHEGADA:</label><br>
+                    <input type="date" id="txtEndDate" v-model='frm.filter.endDate'><br>
+
+                    <!--TIPO DA VIAGEM-->
+                    <input type="radio" id="rdVacation" value="holidays" v-model='frm.filter.type'>FÉRIAS
+                    <input type="radio" id="rdBusiness" value="business" v-model='frm.filter.type'>NEGÓCIOS
+                    <br><br>
+                </div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>CONTINENTE</th>
+                        <th>PAÍS</th>
+                        <th>DATA PARTIDA</th>
+                        <th>DATA CHEGADA</th>
+                        <th>OPÇÕES</th>
+                    </tr>
+                    <tr v-for='travel in filteredTravel'>
+                        <td>{{travel.id}}</td>
+                        <td>{{travel.continent}}</td>
+                        <td>{{travel.country}}</td>
+                        <td>{{formatDate(travel.startDate)}}</td>
+                        <td>{{formatDate(travel.endDate)}}</td>
+                        <td>
+                            <button @click='editTravel(travel.id)'>EDITAR</button>
+                            <button @click='removeTravel(travel.id)'>REMOVER</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="sortTravels">
+                <button @click='sortTravelsByCountry'>ORDENAR POR PAÍS</button>
+            </div>
+        </div>
     </div>
+
+
+
+
 
     <script src="./Ex_Vue-Inst.js"></script>
 
