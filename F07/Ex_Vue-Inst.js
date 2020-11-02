@@ -2,8 +2,8 @@ const vm = new Vue({
     el: "#app",
     data: {
         frm: {
-            continent: 'europe',
-            country: 'aaa',
+            continent: 'asia',
+            country: 'china',
             cities: 'bbb',
             description: '',
             startDate: '',
@@ -17,7 +17,16 @@ const vm = new Vue({
                 type: ''
             }
         },
-        travels: []
+        travels: [],
+        flagCountry: -1
+    },
+    created(){
+        if (localStorage.getItem('travels')) {
+            this.travels = JSON.parse(localStorage.getItem('travels'))            
+        }
+    },
+    destroyed(){
+        localStorage.setItem('travels', JSON.stringify(this.travels))
     },
     methods: {
         getNextId() {
@@ -51,7 +60,34 @@ const vm = new Vue({
         },
 
         sortTravelsByCountry(){
-            
+            this.flagCountry = this.flagCountry * -1
+            this.travels = this.travels.sort(this.compareCountries)
+        },
+
+        compareCountries(a, b){
+            if (a.country > b.country)
+                return 1 * this.flagCountry
+
+            if (a.country < b.country)
+                return -1 * this.flagCountry
+
+            if (a.country = b.country)
+                return 0
+        },
+
+        sortTravelsByStartDate(){
+            this.travels = this.travels.sort(this.compareDates)
+        },
+
+        compareDates(a, b){
+            if (a.startDate > b.startDate)
+                return 1
+
+            if (a.startDate < b.startDate)
+                return -1
+
+            if (a.startDate == b.startDate)
+                return 0
         },
 
         removeTravel(id) {
@@ -100,3 +136,7 @@ const vm = new Vue({
         }
     }
 })
+
+window.onunload = function () {
+    vm.$destroy()    
+}

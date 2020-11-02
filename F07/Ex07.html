@@ -87,6 +87,7 @@
                     <input type="radio" id="rdBusiness" value="business" v-model='frm.filter.type'>NEGÓCIOS
                     <br><br>
                 </div>
+
                 <table>
                     <tr>
                         <th>ID</th>
@@ -107,11 +108,16 @@
                             <button @click='removeTravel(travel.id)'>REMOVER</button>
                         </td>
                     </tr>
-                </table>
-            </div>
+                </table><br><br>
 
-            <div id="sortTravels">
-                <button @click='sortTravelsByCountry'>ORDENAR POR PAÍS</button>
+                <div id="sortTravels">
+                    <button @click='sortTravelsByCountry'>
+                        ORDENAR POR PAÍS
+                        {{flagCountry == -1 ? "A-Z" : "Z-A"}}
+                    </button>
+                    <button @click='sortTravelsByStartDate'>ORDENAR POR DATA DE PARTIDA</button>
+                </div>
+
             </div>
         </div>
     </div>
