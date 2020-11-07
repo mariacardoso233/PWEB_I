@@ -71,7 +71,7 @@ const vm = new Vue({
             if (a.country < b.country)
                 return -1 * this.flagCountry
 
-            if (a.country = b.country)
+            if (a.country === b.country)
                 return 0
         },
 
@@ -86,7 +86,7 @@ const vm = new Vue({
             if (a.startDate < b.startDate)
                 return -1
 
-            if (a.startDate == b.startDate)
+            if (a.startDate === b.startDate)
                 return 0
         },
 
