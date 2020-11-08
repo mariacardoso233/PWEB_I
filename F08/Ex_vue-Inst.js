@@ -192,7 +192,7 @@ const vm = new Vue({
                     break;
 
                 case 'fiv':
-                    //
+                    //Acrescentar 5 anos à data de criação a todos os castelos iniciados por uma vogal
                     const moreFiveYears = this.castles.map(
                         castle => {
                             if (castle.name.startsWith('a') ||
