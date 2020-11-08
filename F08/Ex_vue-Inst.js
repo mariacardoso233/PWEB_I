@@ -11,15 +11,15 @@ const vm = new Vue({
                 linkPhoto: '',
                 year: '',
             },
-            filter:{
-                name:'',
+            filter: {
+                name: '',
             }
         },
         linkPhoto: '',
         flagSortCastle: -1,
         castles: []
     },
-    
+
     created() {
         this.castles = [
             {
@@ -86,6 +86,133 @@ const vm = new Vue({
     },
 
     methods: {
+        manipulateArray(exercise) {
+            switch (exercise) {
+                //ALINEA E)
+
+                case 'ei':
+                    //Retirar a palavra "Castelo"
+                    const str = 'Castelo'
+                    this.castles.map(
+                        castle => {
+                            castle.name = castle.name.replace(str, '')
+                            return castle
+                        }
+                    )
+                    break;
+
+                case 'eii':
+                    //Média do ano de criação dos castelos
+                    const mediaAno = this.castles.reduce(
+                        (acum, cur) => acum + cur.year, 0
+                    ) / this.castles.length
+                    console.log(mediaAno);
+                    break;
+
+                case 'eiii':
+                    //Verificar se algum castelo inclui o nome "Marvão"
+                    const existMarvaoCastle = this.castles.some(
+                        castle => castle.name.includes('Marvão')
+
+                    )
+                    console.log(
+                        existMarvaoCastle ? 'SIM' : 'NÃO'
+                    )
+                    break;
+
+                case 'eiv':
+                    //Devolver novo array com castelos que comecem com a letra "A"
+                    const newArrayCastles = this.castles.filter(
+                        castle => castle.name.startsWith('A')
+                    )
+                    console.log(newArrayCastles);
+                    break;
+
+                case 'ev':
+                    //Devolver valor booleano a indicar se todos os castelos têm o link preenchido
+                    const linkFilled = this.castles.every(
+                        castle => castle.linkPhoto.lenght != 0
+                    )
+                    console.log(
+                        linkFilled ? "SIM" : "NÃO"
+                    );
+                    break;
+
+                case 'evi':
+                    //Preencher os 3 últimos objetos com o link "http://nofoto.jpg"
+                    break;
+
+                case 'evii':
+                    //Devolver objeto do castelo Santa Maria da Feira
+                    const castleObj = this.castles.find(
+                        castle => castle.name === 'Castelo de Santa Maria da Feira'
+                    )
+                    console.log(
+                        castleObj ? 'Existe esse castelo!' : 'Não existe esse castelo!'
+                    );
+                    break;
+
+                case 'eviii':
+                    //Devolver posição no array do objeto do castelo Arraiolos
+                    const posCastle = this.castles.findIndex(
+                        castle => castle.name === 'Castelo de Arraiolos'
+                    )
+                    console.log(posCastle);
+                    break;
+
+                //ALINEA F)
+
+                case 'fi':
+                    //Devolver todos os nomes dos castelos separados por um hífen
+                    const separator = '-'
+                    const castleName = this.castles.map(
+                        castle => castle.name
+                    )
+                    console.log(castleName.join(separator));
+                    break;
+
+                case 'fii':
+                    //Devolver os nomes dos castelos que foram criados depois de 1950
+                    const modernCastles = this.castles.filter(
+                        castle => castle.year > 1950
+                    )
+                    console.table(modernCastles)
+                    break;
+
+                case 'fiii':
+                    const clearLink = this.castles.map(
+                        castle => {
+                            if (castle.year < 1900) {
+                                castle.linkPhoto = ''
+                            }
+                            return castle
+                        }
+                    )
+                    console.table(clearLink)
+                    break;
+
+                case 'fiv':
+                    //
+                    const moreFiveYears = this.castles.map(
+                        castle => {
+                            if (castle.name.startsWith('a') ||
+                                castle.name.startsWith('e') ||
+                                castle.name.startsWith('i') ||
+                                castle.name.startsWith('o') ||
+                                castle.name.startsWith('u')
+                            ) {
+                                castle.year += 5
+                            }
+                            return castle
+                        }
+                    )
+                    console.table(moreFiveYears);
+                    break;
+
+                default:
+                    break;
+            }
+        },
         getNextId() {
             //return this.castles.length ? this.castles[this.castles.length - 1].id + 1
             if (this.castles.length === 0) {
@@ -159,19 +286,19 @@ const vm = new Vue({
                 alert('Castelo removido com sucesso!')
             }
         },
-        sortCastles(){
+        sortCastles() {
             this.flagSortCastle = this.flagSortCastle * -1
             this.castles.sort(this.compareCastles)
         },
-        compareCastles(a,b){
+        compareCastles(a, b) {
             if (a.name > b.name) return 1 * this.flagSortCastle
             if (a.name < b.name) return -1 * this.flagSortCastle
             if (a.name === b.name) return 0
-        }
+        },
     },
 
     computed: {
-        filteredCastles(){
+        filteredCastles() {
             return this.castles.filter(
                 castle => castle.name.includes(this.frm.filter.name)
             )

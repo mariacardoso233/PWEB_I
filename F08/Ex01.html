@@ -13,6 +13,24 @@
     <div id="app">
 
         <h1>PORTUGAL CASTLES</h1>
+        <div id='manipulacao'>
+            <!--ALINEA E)-->
+            <button @click='manipulateArray("ei")'>e) i.</button>
+            <button @click='manipulateArray("eii")'>e) ii.</button>
+            <button @click='manipulateArray("eiii")'>e) iii.</button>
+            <button @click='manipulateArray("eiv")'>e) iv.</button>
+            <button @click='manipulateArray("ev")'>e) v.</button>
+            <button @click='manipulateArray("evi")'>e) vi.</button>
+            <button @click='manipulateArray("evii")'>e) vii.</button>
+            <button @click='manipulateArray("eviii")'>e) viii.</button>
+
+            <!--ALINEA F)-->
+            <button @click='manipulateArray("fi")'>f) i.</button>
+            <button @click='manipulateArray("fii")'>f) ii.</button>
+            <button @click='manipulateArray("fiii")'>f) iii.</button>
+            <button @click='manipulateArray("fiv")'>f) iv.</button>
+
+        </div>
         <br>
         <form @submit.prevent='addCastle'>
             <label for="txtName">NOME DO CASTELO:</label>
@@ -30,36 +48,36 @@
                 NÃO EXISTEM CASTELOS!
             </p>
             <p v-else>
-                <div id="filterCastles">
-                    <label for="txtFilterName">NOME:</label>
-                    <input type="text" v-model='frm.filter.name' id="txtFilterName">
-                </div>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th @click='sortCastles'>NOME</th>
-                        <th>ANO</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                    <tr v-for='castle in filteredCastles'>
-                        <td>{{castle.id}}</td>
-                        <td>{{castle.name}}</td>
-                        <td>{{castle.year}}</td>
-                        <td>
-                            <button @click='editCastle(castle.id)'>EDITAR</button>
-                            <button @click='viewCastle(castle.id)'>VER</button>
-                            <button @click='removeCastle(castle.id)'>REMOVER</button>
-                        </td>
-                        
-                    </tr>
-                </table>
+            <div id="filterCastles">
+                <label for="txtFilterName">NOME:</label>
+                <input type="text" v-model='frm.filter.name' id="txtFilterName">
+            </div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th @click='sortCastles'>NOME</th>
+                    <th>ANO</th>
+                    <th>AÇÕES</th>
+                </tr>
+                <tr v-for='castle in filteredCastles'>
+                    <td>{{castle.id}}</td>
+                    <td>{{castle.name}}</td>
+                    <td>{{castle.year}}</td>
+                    <td>
+                        <button @click='editCastle(castle.id)'>EDITAR</button>
+                        <button @click='viewCastle(castle.id)'>VER</button>
+                        <button @click='removeCastle(castle.id)'>REMOVER</button>
+                    </td>
+
+                </tr>
+            </table>
             </p>
         </div>
-        
-        
-        
-        
-        <dialog id="dlgUpdateCastle" >
+
+
+
+
+        <dialog id="dlgUpdateCastle">
             <form @submit.prevent='updateCastle'>
                 <label for="txtId">ID:</label>
                 <input type="text" id="txtId" v-model='frm.edit.id' readonly disabled>
@@ -77,7 +95,7 @@
             </form>
         </dialog>
 
-        <dialog id="dlgViewCastle" >
+        <dialog id="dlgViewCastle">
             <img :src="linkPhoto" alt="">
             <br>
             <form method="dialog">
