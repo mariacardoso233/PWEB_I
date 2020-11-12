@@ -20,6 +20,11 @@ const vm = new Vue({
         travels: [],
         flagCountry: -1
     },
+
+    //Created() e destroyed() -> gravação e recuperação dos dados :
+                // window.onunload = function () {
+                //     vm.$destroy()    
+                // }
     created(){
         if (localStorage.getItem('travels')) {
             this.travels = JSON.parse(localStorage.getItem('travels'))            
@@ -29,6 +34,8 @@ const vm = new Vue({
         localStorage.setItem('travels', JSON.stringify(this.travels))
     },
     methods: {
+
+        //Criação do ID do objeto do array
         getNextId() {
             if (this.travels.length === 0) {
                 return 1
@@ -37,6 +44,7 @@ const vm = new Vue({
             }
         },
 
+        //Formatação da data estilo: DD-MM-YYYY
         formatDate(d) {
             console.log(d);
             d = new Date(d)
@@ -44,6 +52,7 @@ const vm = new Vue({
             return `${d.getDay()}-${d.getMonth()}-${d.getFullYear()}`
         },
 
+        //Inserir novas viagens ao array
         addTravel() {
             const newTravel = {
                 id: this.getNextId(),
@@ -59,11 +68,13 @@ const vm = new Vue({
             this.travels.push(newTravel);
         },
 
+        //Sort e Compare servem para a ordenação da tabela
         sortTravelsByCountry(){
             this.flagCountry = this.flagCountry * -1
             this.travels = this.travels.sort(this.compareCountries)
         },
 
+        //Comparação de um elemento do array com o outro para ordenação
         compareCountries(a, b){
             if (a.country > b.country)
                 return 1 * this.flagCountry
@@ -90,12 +101,18 @@ const vm = new Vue({
                 return 0
         },
 
+        //Configuração Remover de linha da tabela
         removeTravel(id) {
-            this.travels = this.travels.filter(
-                travel => travel.id !== id
-            )
+            //Confirmação para remoção de viagem
+            if (confirm('Deseja remover a viagem?')) {
+                this.travels = this.travels.filter(
+                    travel => travel.id !== id
+                )
+                alert('Viagem removida com sucesso!')
+            }
         }, 
 
+        //Configuração Editar de linha da tabela
         editTravel(id){
             const travelId = this.travels.findIndex(
                 travel => travel.id == id
@@ -103,8 +120,10 @@ const vm = new Vue({
             this.travels[travelId].country = prompt('Novo país?')
         }
     },
+    //Filtros
     computed: { 
         filteredTravel() {
+            //Filtrar por Continente, Data e Tipo
             return this.travels.filter(
                 travel => {
                     let filterContinentResult = true

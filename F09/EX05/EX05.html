@@ -14,7 +14,11 @@
 <body>
 
     <div id="app">
+        <game-soccer-card v-bind:game='this.games'></game-soccer-card>
     </div>
+
+
+
 
     <script src="./Ex5_vue-Comp.js"></script>
     <script>
@@ -23,19 +27,17 @@
             data: {
                 games:[]
             },
-            methods:{
-            },
             created(){
                 this.games.push(
                     {
                         stadium: 'Estádio da Luz',
-                        photo:'',
+                        photo:'https://media.slbenfica.pt/-/media/benficadp/images/departamento-de-comunicacao/2019/futebol/estadio-e-adeptos/16-aniversario/numeros-e-curiosidades/estadio-luz-16-aniversario-new.jpg?h=741&iar=0&w=1320&v=637074520250000000&hash=C9C394C6F999C63D3A92029B2988BED3',
                         teamName1: 'Benfica',
                         teamName2: 'Porto',
                         goals: [
                             {playerName:'Darwin',minutes:22, teamName:'Benfica'},
                             {playerName:'Marega',minutes:92, teamName:'Porto'}
-                        ]
+                        ],
                     }
                 )
             }
