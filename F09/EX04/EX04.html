@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha 09 - Ex 04</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue"></script>
+
+</head>
+
+<body>
+
+    <div id="app" v-bind:style="{backgroundColor: backColor}">
+        <color-picker v-on:change-color="paint"></color-picker>
+        <color-picker v-on:change-color="paint"></color-picker>
+    </div>
+
+    <script src="./Ex4_vue-Comp.js"></script>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                backColor:'#FFFFF'
+            },
+            methods:{
+                paint(color){
+                    console.log(color);
+                    this.backColor = color
+                }
+
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>
