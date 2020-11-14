@@ -14,31 +14,165 @@
 <body>
 
     <div id="app">
-        <game-soccer-card v-bind:game='this.games'></game-soccer-card>
+
+        <h1>Game Soccer Cards</h1>
+
+        <h5>FILTROS</h5>
+        <!--POR ESTÁDIO-->
+        <label for="sltStadium">ESTÁDIO:</label>
+        <select id="sltStadium" v-model='filterStadium'>
+            <option value="">TODOS</option>
+            <option v-for='stadium in getAllStadiums' :value="stadium">{{stadium}}</option>
+        </select>
+
+        <!--POR EQUIPA-->
+        <label for="sltTeam">EQUIPA:</label>
+        <select id="sltTeam" v-model='filterTeamName'>
+            <option value="">TODAS</option>
+            <option v-for='teamName in getAllTeamNames' :value="teamName">{{teamName}}</option>
+        </select>
+
+
+        <div class="card-deck">
+            <game-soccer-card v-for="game in filteredGames" :game='game' :key='game.id'></game-soccer-card>
+        </div>
+
     </div>
-
-
-
 
     <script src="./Ex5_vue-Comp.js"></script>
     <script>
         const vm = new Vue({
             el: "#app",
             data: {
-                games:[]
+                filterStadium: '',
+                filterTeamName: '',
+                games: []
             },
-            created(){
+            computed: {
+                filteredGames() {
+                    return this.games.filter(
+                        game => {
+                            if (
+                                (
+                                    this.filterTeamName == "" ||
+                                    (this.filterTeamName == game.teamName1 || this.filterTeamName == game.teamName2)
+                                )
+                                &&
+                                (
+                                    this.filterStadium == "" || this.filterStadium == game.stadium
+                                )
+                            )
+                            return game;
+
+                        }
+                    )
+                },
+                getAllStadiums() {
+                    const stadiums = [];
+                    for (let game of this.games) {
+                        if (stadiums.indexOf(game.stadium) == -1)
+                            stadiums.push(game.stadium);
+                    }
+                    return stadiums;
+                },
+
+                getAllTeamNames() {
+                    const teamsNames = [];
+                    for (let game of this.games) {
+                        if (teamsNames.indexOf(game.teamName1) == -1)
+                            teamsNames.push(game.teamName1);
+                        if (teamsNames.indexOf(game.teamName2) == -1)
+                            teamsNames.push(game.teamName2);
+                    }
+                    return teamsNames;
+                },
+
+
+            },
+            created() {
                 this.games.push(
                     {
-                        stadium: 'Estádio da Luz',
-                        photo:'https://media.slbenfica.pt/-/media/benficadp/images/departamento-de-comunicacao/2019/futebol/estadio-e-adeptos/16-aniversario/numeros-e-curiosidades/estadio-luz-16-aniversario-new.jpg?h=741&iar=0&w=1320&v=637074520250000000&hash=C9C394C6F999C63D3A92029B2988BED3',
-                        teamName1: 'Benfica',
-                        teamName2: 'Porto',
+                        id: 1,
+                        stadium: 'Estádio do Dragão',
+                        photo: 'https://media-cdn.tripadvisor.com/media/photo-p/10/00/f7/85/estadio-do-dragao.jpg',
+                        teamName1: 'Porto',
+                        teamName2: 'SLBenfica',
                         goals: [
-                            {playerName:'Darwin',minutes:22, teamName:'Benfica'},
-                            {playerName:'Marega',minutes:92, teamName:'Porto'}
-                        ],
-                    }
+                            {
+                                playerName: 'Marega',
+                                minutes: 92,
+                                teamName: 'Porto'
+                            },
+                            {
+                                playerName: 'Pepe',
+                                minutes: 88,
+                                teamName: 'Porto'
+                            },
+                            {
+                                playerName: 'Darwin',
+                                minutes: 22,
+                                teamName: 'SLBenfica'
+                            }
+                        ]
+                    },
+                    {
+                        id: 2,
+                        stadium: 'Estádio de Alvalade',
+                        photo: 'https://cdn.gamer-network.net/2018/articles/2018-07-25-15-36/estadio-jose-alvalade-em-pes-2019-1532529406772.jpg/EG11/thumbnail/1920x1081/format/jpg/quality/80',
+                        teamName1: 'SCSporting',
+                        teamName2: 'SCEstoril',
+                        goals: [
+                            {
+                                playerName: 'Bas Dost',
+                                minutes: 93,
+                                teamName: 'SCSporting'
+                            },
+                            {
+                                playerName: 'André Franco',
+                                minutes: 22,
+                                teamName: 'SCEstoril'
+                            }
+                        ]
+                    },
+                    {
+                        id: 3,
+                        stadium: 'Estádio do Dragão',
+                        photo: 'https://media-cdn.tripadvisor.com/media/photo-p/10/00/f7/85/estadio-do-dragao.jpg',
+                        teamName1: 'Porto',
+                        teamName2: 'SLBenfica',
+                        goals: [
+                            {
+                                playerName: 'Marega',
+                                minutes: 92,
+                                teamName: 'Porto'
+                            },
+                            {
+                                playerName: 'Darwin',
+                                minutes: 22,
+                                teamName: 'SLBenfica'
+                            }
+                        ]
+                    },
+                    {
+                        id: 4,
+                        stadium: 'Estádio do Dragão',
+                        photo: 'https://media-cdn.tripadvisor.com/media/photo-p/10/00/f7/85/estadio-do-dragao.jpg',
+                        teamName1: 'Porto',
+                        teamName2: 'SLBenfica',
+                        goals: [
+                            {
+                                playerName: 'Marega',
+                                minutes: 92,
+                                teamName: 'Porto'
+                            },
+                            {
+                                playerName: 'Darwin',
+                                minutes: 22,
+                                teamName: 'SLBenfica'
+                            }
+                        ]
+                    },
+
                 )
             }
         })
