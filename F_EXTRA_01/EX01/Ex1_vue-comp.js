@@ -1,26 +1,26 @@
 
-//Definir o componente game-soccer-card
-// Vue.component('view-grade', {
-
-//     template: `
-//     <div class="modal" tabindex="-1">
-//     <div class="modal-dialog">
-//       <div class="modal-content">
-//         <div class="modal-header">
-//           <h5 class="modal-title">Modal title</h5>
-//           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-//             <span aria-hidden="true">&times;</span>
-//           </button>
-//         </div>
-//         <div class="modal-body">
-//           <p>Modal body text goes here.</p>
-//         </div>
-//         <div class="modal-footer">
-//           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-//           <button type="button" class="btn btn-primary">Save changes</button>
-//         </div>
-//       </div>
-//     </div>
-//   </div>
-//     `
-// })
+//Definir o componente view-grade para consulta de uma nota
+Vue.component('view-grade', {
+    props:{
+        grade: Object
+    },
+    template: `
+        <div id='modalViewGrade' class="modal" tabindex="-1" target='btnViewGrade'>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nota</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{grade.studentName}}</p>
+                        <p>{{grade.ucName}}</p>
+                        <p>{{grade.grade}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+  `
+})

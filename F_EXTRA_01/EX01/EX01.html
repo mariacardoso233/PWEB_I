@@ -18,13 +18,13 @@
         <br>
 
         <div class="panel panel-default">
-            <div class="panel-heading">Estatísticas Globais</div>
+            <div class="panel-heading"><h5>Estatísticas Globais</h5></div>
             <div class="panel-body">Panel Content</div>
         </div>
         <br>
 
         <form @submit.prevent='addGrade'>
-            <h6>Registo de uma nota</h6>
+            <h5>Registo de uma nota</h5>
             <label for="sltUcs">UC: </label>
             <select id="sltUcs" v-model='frm.ucName' required>
                 <option value="" readonly disabled>Selecione uma UC</option>
@@ -88,7 +88,7 @@
                             <td>{{grade.grade}}</td>
                             <td>
                                 <button class='btn btn-primary' @click='editGrade(grade.id)'>EDITAR</button>
-                                <button class="btn btn-secondary" @click=''>CONSULTAR</button>
+                                <button id='btnViewGrade' class="btn btn-secondary" @click=''>CONSULTAR</button>
                                 <button class='btn btn-danger' @click='removeGrade(grade.id)'>REMOVER</button>
                             </td>
                         </tr>
@@ -120,7 +120,7 @@
 
 
         <!--MODAL PARA CONSULTA DE UMA NOTA-->
-        <!-- <view-grade v-for="grade in grade"></view-grade> -->
+        <view-grade v-for='grade in filteredGrades' :grade='grade' :key='grade.id'></view-grade>
 
 
 
