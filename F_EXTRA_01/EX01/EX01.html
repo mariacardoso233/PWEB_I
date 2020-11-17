@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-TSIW</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue"></script>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <h1>e-TSIW</h1>
+        <br>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Estatísticas Globais</div>
+            <div class="panel-body">Panel Content</div>
+        </div>
+        <br>
+
+        <form @submit.prevent='addGrade'>
+            <h6>Registo de uma nota</h6>
+            <label for="sltUcs">UC: </label>
+            <select id="sltUcs" v-model='frm.ucName' required>
+                <option value="" readonly disabled>Selecione uma UC</option>
+                <option value="Base De Dados">Base De Dados</option>
+                <option value="PW1">PW1</option>
+                <option value="Computação Gráfica">Computação Gráfica</option>
+            </select><br>
+
+            <label for="sltStudent">Estudante:</label>
+            <select id="sltStudent" v-model='frm.studentName' required>
+                <option value="" readonly disabled>Selecione um estudante</option>
+                <option value='Maria'>Maria</option>
+                <option value='João'>João</option>
+                <option value='Rui'>Rui</option>
+            </select><br>
+
+            <label for="txtGrade">NOTA:</label>
+            <input type="text" id="txtGrade" v-model='frm.grade' required><br>
+
+            <input type="submit" value="ADICIONAR NOTA">
+        </form>
+        <br><br>
+
+        <div id='listGrades'>
+            <div v-if='grades.length === 0'>
+                SEM NOTAS ATRIBUÍDAS!!
+            </div>
+            <div v-else>
+
+                <div id="filterGrades">
+                    <label for="txtFilterStudentName">NOME:</label>
+                    <input type="text" v-model='frm.filter.studentName' id="txtFilterStudentName">
+                    /
+                    <label for="txtFilterUcName">UC:</label>
+                    <input type="text" v-model='frm.filter.ucName' id="txtFilterUcName">
+                </div>
+
+                <!--ORDENAÇÃO POR NOTA-->
+                <div id="sortGrades">
+                    <button @click='sortByGrade'>
+                        ORDENAR POR NOTA
+                        {{flagGrade == -1 ? "0-20" : "20-0"}}
+                    </button>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NOME DO ESTUDANTE</th>
+                            <th>NOME DA UC</th>
+                            <th>NOTA ATRIBUÍDA</th>
+                            <th>AÇÕES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for='grade in filteredGrades'>
+                            <td scope="row">{{grade.id}}</td>
+                            <td>{{grade.studentName}}</td>
+                            <td>{{grade.ucName}}</td>
+                            <td>{{grade.grade}}</td>
+                            <td>
+                                <button class='btn btn-primary' @click='editGrade(grade.id)'>EDITAR</button>
+                                <button class="btn btn-secondary" @click=''>CONSULTAR</button>
+                                <button class='btn btn-danger' @click='removeGrade(grade.id)'>REMOVER</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!--MODAL PARA EDIÇÃO DE UMA NOTA-->
+
+        <dialog id="dlgEditGrade">
+            <form @submit.prevent='updateGrade'>
+                <label for="txtId">ID:</label>
+                <input type="text" id="txtId" v-model='frm.edit.id' readonly disabled>
+                <br>
+                <label for="txtStudentName">NOME DO ESTUDANTE:</label>
+                <input type="text" id="txtStudentName" v-model='frm.edit.studentName' readonly disabled>
+                <br>
+                <label for="txtUcName">NOME DA UC:</label>
+                <input type="text" id="txtUcName" v-model='frm.edit.ucName' readonly disabled>
+                <br>
+                <label for="txtEditGrade">NOTA:</label>
+                <input type="text" id="txtEditGrade" v-model='frm.edit.grade' required>
+                <br><br>
+                <input type="submit" value="ATUALIZAR NOTA">
+            </form>
+        </dialog>
+
+
+        <!--MODAL PARA CONSULTA DE UMA NOTA-->
+        <!-- <view-grade v-for="grade in grade"></view-grade> -->
+
+
+
+
+
+
+
+    </div>
+
+    <script src="./Ex1_vue-Inst.js"></script>
+    <script src="./Ex1_vue-comp.js"></script>
+
+</body>
+
+</html>
