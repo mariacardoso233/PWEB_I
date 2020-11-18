@@ -15,6 +15,18 @@
 
     <div id="app">
 
+        <h1>e-TSIW</h1><br>
+
+        <div id="lstStats">
+            <ul>
+                <li>Nota mais alta do curso: {{getHighestGrade()}}</li>
+                <li>Nome do estudante com a melhor média: {{getBestStudentAverage()}}</li>
+                <li>Nome da UC com a melhor média: {{getBestUcAverage()}}</li>
+                <li>Nome da UC com a mais alta taxa de reprovações</li>
+            </ul>
+        </div>
+        <br>
+
         <form @submit.prevent='addGrade'>
             <h5>Registo de uma nota</h5>
 
@@ -60,7 +72,7 @@
                         <option value=''>TODAS</option>
                         <option v-for='uc in ucs' :value='uc.id'>{{uc.name}}</option>
                     </select>
-                    
+
                 </div>
 
                 <!--ORDENAÇÃO POR NOTA-->

@@ -119,7 +119,103 @@ const vm = new Vue({
 
             if (a.grade === b.grade)
                 return 0
-        }
+        },
+
+        //-------Estatísticas globais---------
+
+        //Nota mais alta do curso
+        getHighestGrade() {
+            // Solução sem usar o método sort
+            if (this.grades.length != 0) {
+                let highestGrade = this.grades[0].grade
+                let studentName = this.getStudentNameById(this.grades[0].student)
+                let ucName = this.getUcNameById(this.grades[0].uc)
+
+                this.grades.forEach(
+                    grade => {
+                        if (grade.grade > highestGrade) {
+                            highestGrade = grade.grade
+                            studentName = this.getStudentNameById(grade.student)
+                            ucName = this.getUcNameById(grade.uc)
+                        }
+                    });
+                return `A maior nota é do aluno ${studentName} com a nota ${highestGrade} a ${ucName}`
+            } else {
+                return `N/A`
+            }
+        },
+
+        //Nome do estudante com a melhor média
+        getBestStudentAverage() {
+            if (this.grades.length != 0) {
+
+                const studentsAverage = []
+                let average = 0, count = 0
+                this.students.forEach(
+                    student => {
+                        average = 0, count = 0
+                        average = this.grades.reduce(
+                            (acc, item) => {
+                                if (student.id == item.student) {
+                                    count++
+                                    return acc = acc + item.grade
+                                }
+                            }, 0) / count
+                        studentsAverage.push({ student: student.name, average: isNaN(average) ? 0 : average })
+
+                    }
+                )
+                let studentName = studentsAverage[0].student
+                let highestAverage = studentsAverage[0].average
+                studentsAverage.forEach(
+                    average => {
+                        if (average.average > highestAverage) {
+                            highestAverage = average.average
+                            studentName = average.student
+                        }
+                    }
+                )
+                return `A melhor média é do aluno ${studentName} com ${highestAverage}`
+            } else {
+                return 'N/A'
+            }
+        },
+
+        //Nome da UC com a melhor média
+        getBestUcAverage() {
+            if (this.grades.length != 0) {
+
+                const ucsAverage = []
+                let average = 0, count = 0
+                this.ucs.forEach(
+                    uc => {
+                        average = 0, count = 0
+                        average = this.grades.reduce(
+                            (acc, item) => {
+                                if (uc.id == item.uc) {
+                                    count++
+                                    return acc = acc + item.grade
+                                }
+                            }, 0) / count
+                            ucsAverage.push({ uc: uc.name, average: isNaN(average) ? 0 : average })
+
+                    }
+                )
+                let ucName = ucsAverage[0].uc
+                let highestAverage = ucsAverage[0].average
+                ucsAverage.forEach(
+                    average => {
+                        if (average.average > highestAverage) {
+                            highestAverage = average.average
+                            ucName = average.uc
+                        }
+                    }
+                )
+                return `A melhor média é da UC ${ucName} com ${highestAverage}`
+            } else {
+                return 'N/A'
+            }
+        },
 
 
 
@@ -138,6 +234,7 @@ const vm = new Vue({
     },
 
     created() {
+        //Criação dos arrays com informação sobre os estudantes e ucs
         this.students.push(
             { id: 1, name: 'Maria Baldaia' },
             { id: 2, name: 'João Soares' },
