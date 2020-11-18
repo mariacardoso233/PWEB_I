@@ -2,36 +2,27 @@
 const vm = new Vue({
     el: "#app",
     data: {
+        grade: '',
         frm: {
-            ucName: '',
-            studentName: '',
+            student: '',
+            uc: '',
             grade: '',
-            edit:{
+            edit: {
                 id: '',
-                ucName:'',
-                studentName: '',
-                grade:''
+                grade: '',
             },
-            filter:{
-                studentName:'',
-                ucName:'',
+            filter: {
+                student: '',
+                uc: ''
             }
         },
+        students: [],
+        ucs: [],
         grades: [],
-        students: ['Maria Baldaia', 'João Soares','Lúcia Brito'],
-        subjects: ['Programação Web I', 'Base de Dados', 'Computação Gráfica', 'Engenharia de Software', 'Ergonomia'],
-        flagGrade: -1,
-
+        sortFlag: -1
     },
-    //Método create para guardar informaçãp dos estudantes e das UCs do curso
-    
     methods: {
-        create(){
-            //this.students = [],
-            //this.subjects = []
-        },
-        
-        //Criação do ID do objeto do array
+        //Criação do ID do objeto do array "grades"
         getNextId() {
             if (this.grades.length === 0) {
                 return 1
@@ -43,27 +34,33 @@ const vm = new Vue({
             const newGrade = {
                 //Informação da nota para guardar no array
                 id: this.getNextId(),
-                ucName: this.frm.ucName,
-                studentName: this.frm.studentName,
+                uc: this.frm.uc,
+                student: this.frm.student,
                 grade: this.frm.grade
             }
-            this.grades.push(newGrade);
+            //Validação se já existem uma nota com o estudante e a disciplina
+            if (!this.grades.some(grade =>
+                grade.student == this.frm.student &&
+                grade.uc == this.frm.uc)) {
+                this.grades.push(newGrade)
+            }
+            else {
+                alert('NOTA JÁ ATRIBUÍDA!')
+            }
         },
 
         //AÇÕES DA TABELA (Editar, Remover)
-        editGrade(id){
+        editGrade(id) {
             //Exibir janela
             document.querySelector('#dlgEditGrade').showModal()
 
-            //Update da edição
+            //Guardar o id da nota a ser atualizada
             const editGrade = this.grades.find(
                 grade => grade.id === id
             )
 
-            //Informação nos campos do formulário de edição
+            //Informação nos campos do formulário de edição (Nota apenas)
             this.frm.edit.id = editGrade.id
-            this.frm.edit.studentName = editGrade.studentName
-            this.frm.edit.ucName = editGrade.ucName
             this.frm.edit.grade = editGrade.grade
         },
         //Atualiza os dados que estão no formulário para o objeto
@@ -81,8 +78,8 @@ const vm = new Vue({
             )
         },
 
-        removeGrade(id){
-            //Confirmação para remoção de viagem
+        removeGrade(id) {
+            //Confirmação para remover a nota desejada
             if (confirm('Deseja remover a nota?')) {
                 this.grades = this.grades.filter(
                     grade => grade.id !== id
@@ -91,46 +88,70 @@ const vm = new Vue({
             }
         },
 
-        //Ordenação por nota (ascendente e descendente)
-        sortByGrade(){
-            this.flagGrade = this.flagGrade * -1
-            this.grades = this.grades.sort(this.compareGrades)
+        showGrade(grade) {
+            this.grade = grade
         },
 
-        compareGrades(a,b){
+        //Permite aparecer o nome do elemento na tabela em vez do ID do elemento (estudantes e ucs)
+        getStudentNameById(id) {
+            return this.students.find(
+                student => student.id === id
+            ).name
+        },
+
+        getUcNameById(id) {
+            return this.ucs.find(
+                uc => uc.id === id
+            ).name
+        },
+
+        //Ordenação por nota (ascendente e descendente)
+        sortByGrade() {
+            this.sortFlag = this.sortFlag * -1
+            this.grades = this.grades.sort(this.compareGrades)
+        },
+        compareGrades(a, b) {
             if (a.grade > b.grade)
-                return 1 * this.flagGrade
+                return 1 * this.sortFlag
 
             if (a.grade < b.grade)
-                return -1 * this.flagGrade
+                return -1 * this.sortFlag
 
             if (a.grade === b.grade)
                 return 0
         }
 
+
+
     },
-    computed:{
-        filteredGrades(){
+    computed: {
+        //Filtro com seletores
+        filteredGrades() {
             //Filtro combinado por estudante e por UC
             return this.grades.filter(
-                grade => {
-                    let filterNameResult = true
-                    let filterUcResult = true
-
-                    //Filtro do nome do estudante     includes(à medida que vai escrevendo vai atualizando a tabela)-> permite 
-                    if (this.frm.filter.studentName !== '') {
-                        filterNameResult = grade.studentName.includes(this.frm.filter.studentName)
-                    }
-
-                    //Filtro do nome do estudante 
-                    if (this.frm.filter.ucName !== '') {
-                        filterUcResult = grade.ucName.includes(this.frm.filter.ucName)
-                    }                    
-
-                    //Retorna o conjunto dos 2 filtros
-                    return filterNameResult && filterUcResult
-                }
+                grade =>
+                    (this.frm.filter.student === '' || grade.student === this.frm.filter.student)
+                    &&
+                    (this.frm.filter.uc === '' || grade.uc === this.frm.filter.uc)
             )
         }
-    }
+    },
+
+    created() {
+        this.students.push(
+            { id: 1, name: 'Maria Baldaia' },
+            { id: 2, name: 'João Soares' },
+            { id: 3, name: 'Catarina Baldaia' },
+            { id: 4, name: 'Rita Cardoso' },
+            { id: 5, name: 'Rodrigo Santos' }
+        )
+
+        this.ucs.push(
+            { id: 1, name: 'Programação Web I' },
+            { id: 2, name: 'Base de Dados' },
+            { id: 3, name: 'Computação Gráfica' },
+            { id: 4, name: 'Engenharia de Software' },
+            { id: 5, name: 'Ergonomia' }
+        )
+    },
 })

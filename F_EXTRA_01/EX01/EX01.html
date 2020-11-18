@@ -14,36 +14,32 @@
 <body>
 
     <div id="app">
-        <h1>e-TSIW</h1>
-        <br>
-
-        <div class="panel panel-default">
-            <div class="panel-heading"><h5>Estatísticas Globais</h5></div>
-            <div class="panel-body">Panel Content</div>
-        </div>
-        <br>
 
         <form @submit.prevent='addGrade'>
             <h5>Registo de uma nota</h5>
+
+            <!--Seletor para as UCs-->
             <label for="sltUcs">UC: </label>
-            <select id="sltUcs" v-model='frm.ucName' required>
-                <option value="" readonly disabled>Selecione uma UC</option>
-                <option value='subject' v-for='subject in subjects'>{{subject}}</option>
+            <select id="sltUcs" v-model='frm.uc' required>
+                <option value='' readonly disabled>Selecione uma UC</option>
+                <option v-for='uc in ucs' :value='uc.id'>{{uc.name}}</option>
             </select><br>
 
+            <!--Seletor para os estudantes-->
             <label for="sltStudent">Estudante:</label>
-            <select id="sltStudent" v-model='frm.studentName' required>
+            <select id="sltStudent" v-model='frm.student' required>
                 <option value="" readonly disabled>Selecione um estudante</option>
-                <option value='student' v-for='student in students'>{{student}}</option>
+                <option v-for='student in students' :value='student.id'>{{student.name}}</option>
             </select><br>
 
             <label for="txtGrade">NOTA:</label>
-            <input type="text" id="txtGrade" v-model='frm.grade' required><br>
+            <input type="number" min="0" max="20" id="txtGrade" v-model='frm.grade' required><br>
 
             <input type="submit" value="ADICIONAR NOTA">
         </form>
-        <br><br>
+        <br>
 
+        <!--TABELA PARA LISTAR NOTAS DOS ESTUDANTES-->
         <div id='listGrades'>
             <div v-if='grades.length === 0'>
                 SEM NOTAS ATRIBUÍDAS!!
@@ -51,18 +47,27 @@
             <div v-else>
 
                 <div id="filterGrades">
-                    <label for="txtFilterStudentName">NOME:</label>
-                    <input type="text" v-model='frm.filter.studentName' id="txtFilterStudentName">
+                    <!--SELETOR FILTRO PARA ESTUDANTES-->
+                    <label for="sltStudent">Estudante:</label>
+                    <select id="sltStudent" v-model='frm.filter.student' required>
+                        <option value=''>TODOS</option>
+                        <option v-for='student in students' :value='student.id'>{{student.name}}</option>
+                    </select>
                     /
-                    <label for="txtFilterUcName">UC:</label>
-                    <input type="text" v-model='frm.filter.ucName' id="txtFilterUcName">
+                    <!--SELETOR FILTRO PARA UCS-->
+                    <label for="sltUc">UC:</label>
+                    <select id="sltUc" v-model='frm.filter.uc' required>
+                        <option value=''>TODAS</option>
+                        <option v-for='uc in ucs' :value='uc.id'>{{uc.name}}</option>
+                    </select>
+                    
                 </div>
 
                 <!--ORDENAÇÃO POR NOTA-->
                 <div id="sortGrades">
                     <button @click='sortByGrade'>
                         ORDENAR POR NOTA
-                        {{flagGrade == -1 ? "0-20" : "20-0"}}
+                        {{sortFlag == -1 ? "0-20" : "20-0"}}
                     </button>
                 </div>
 
@@ -79,12 +84,12 @@
                     <tbody>
                         <tr v-for='grade in filteredGrades'>
                             <td scope="row">{{grade.id}}</td>
-                            <td>{{grade.studentName}}</td>
-                            <td>{{grade.ucName}}</td>
+                            <td>{{getStudentNameById(grade.student)}}</td>
+                            <td>{{getUcNameById(grade.uc)}}</td>
                             <td>{{grade.grade}}</td>
                             <td>
                                 <button class='btn btn-primary' @click='editGrade(grade.id)'>EDITAR</button>
-                                <button id='btnViewGrade' class="btn btn-secondary" @click=''>CONSULTAR</button>
+                                <button class="btn btn-secondary" @click='showGrade(grade)'>CONSULTAR</button>
                                 <button class='btn btn-danger' @click='removeGrade(grade.id)'>REMOVER</button>
                             </td>
                         </tr>
@@ -93,36 +98,20 @@
             </div>
         </div>
 
-
         <!--MODAL PARA EDIÇÃO DE UMA NOTA-->
-
         <dialog id="dlgEditGrade">
             <form @submit.prevent='updateGrade'>
-                <label for="txtId">ID:</label>
-                <input type="text" id="txtId" v-model='frm.edit.id' readonly disabled>
-                <br>
-                <label for="txtStudentName">NOME DO ESTUDANTE:</label>
-                <input type="text" id="txtStudentName" v-model='frm.edit.studentName' readonly disabled>
-                <br>
-                <label for="txtUcName">NOME DA UC:</label>
-                <input type="text" id="txtUcName" v-model='frm.edit.ucName' readonly disabled>
-                <br>
                 <label for="txtEditGrade">NOTA:</label>
-                <input type="text" id="txtEditGrade" v-model='frm.edit.grade' required>
+                <input type="number" min="0" max="20" id="txtEditGrade" v-model='frm.edit.grade' required>
                 <br><br>
                 <input type="submit" value="ATUALIZAR NOTA">
             </form>
         </dialog>
 
-
-        <!--MODAL PARA CONSULTA DE UMA NOTA-->
-        <view-grade v-for='grade in filteredGrades' :grade='grade' :key='grade.id'></view-grade>
-
-
-
-
-
-
+        <!--MODAL PARA CONSULTAR NOTA-->
+        <div v-if='grade != ""'>
+            <view-grade :grade='grade'></view-grade>
+        </div>
 
     </div>
 

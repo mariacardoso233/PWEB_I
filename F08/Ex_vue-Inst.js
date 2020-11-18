@@ -308,7 +308,7 @@ const vm = new Vue({
     computed: {
         //Filtrar castelo pelo seu nome
         filteredCastles() {
-            return this.castles.filter(
+            return this.castles.filter(     //includes(à medida que vai escrevendo vai atualizando a tabela)
                 castle => castle.name.includes(this.frm.filter.name)
             )
         }
