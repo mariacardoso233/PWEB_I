@@ -18,14 +18,17 @@ const vm = new Vue({
             }
         },
         grades: [],
+        students: ['Maria Baldaia', 'João Soares','Lúcia Brito'],
+        subjects: ['Programação Web I', 'Base de Dados', 'Computação Gráfica', 'Engenharia de Software', 'Ergonomia'],
         flagGrade: -1,
 
     },
+    //Método create para guardar informaçãp dos estudantes e das UCs do curso
+    
     methods: {
-        //Método create para guardar informaçãp dos estudantes e das UCs do curso
         create(){
-            //students: ['Maria Baldaia'],
-            //subjects: ['Programação Web I'],
+            //this.students = [],
+            //this.subjects = []
         },
         
         //Criação do ID do objeto do array

@@ -124,6 +124,7 @@ const vm = new Vue({
     computed: { 
         filteredTravel() {
             //Filtrar por Continente, Data e Tipo
+            //Utilizado para vários filtros 
             return this.travels.filter(
                 travel => {
                     let filterContinentResult = true
@@ -155,7 +156,8 @@ const vm = new Vue({
         }
     }
 })
-
+ 
+//Gravação e recuperação dos dados
 window.onunload = function () {
     vm.$destroy()    
 }

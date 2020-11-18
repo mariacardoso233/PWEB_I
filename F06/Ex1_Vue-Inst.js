@@ -18,14 +18,19 @@ const vm = new Vue({
         savesStorage(){
             localStorage.setItem('tasks', JSON.stringify(this.tasks))
         },
-        getNextId() {  //Obtenção dos id's
+
+        //Obtenção dos id's
+        getNextId() { 
             if (this.tasks.length == 0) {
                 return 1
             } else {
                 return this.tasks[this.tasks.length - 1].id + 1
             }
         },
+
+        //Inserir novas tarefas (adicionar novos elementos no array)
         addTask() {
+
             /* Melhoramento: não inserir duas tarefas iguais */
             if (this.tasks.some(task => task.name === this.task)) {
                 alert('TAREFA JÁ EXISTENTE!')
@@ -44,6 +49,7 @@ const vm = new Vue({
         }
     },
     computed: {
+        //fILTROS
         filterTasks() {
             return this.tasks.filter(
                 task => task.type === this.filter || this.filter === ''

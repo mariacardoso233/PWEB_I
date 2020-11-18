@@ -28,17 +28,13 @@
             <label for="sltUcs">UC: </label>
             <select id="sltUcs" v-model='frm.ucName' required>
                 <option value="" readonly disabled>Selecione uma UC</option>
-                <option value="Base De Dados">Base De Dados</option>
-                <option value="PW1">PW1</option>
-                <option value="Computação Gráfica">Computação Gráfica</option>
+                <option value='subject' v-for='subject in subjects'>{{subject}}</option>
             </select><br>
 
             <label for="sltStudent">Estudante:</label>
             <select id="sltStudent" v-model='frm.studentName' required>
                 <option value="" readonly disabled>Selecione um estudante</option>
-                <option value='Maria'>Maria</option>
-                <option value='João'>João</option>
-                <option value='Rui'>Rui</option>
+                <option value='student' v-for='student in students'>{{student}}</option>
             </select><br>
 
             <label for="txtGrade">NOTA:</label>

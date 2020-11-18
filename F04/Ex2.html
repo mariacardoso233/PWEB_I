@@ -32,6 +32,7 @@
             },
 
             methods: {
+                //Adicionar elemento no array
                 addSchool(school) {
                     if (!this.schools.includes(school)) {
                         this.schools.push(school)
@@ -42,6 +43,8 @@
                 }
             },
             computed: {
+
+                //Filtrar escolas
                 filterSchools() {
                     return this.schools.filter(
                         (school) => school.startsWith(this.char)

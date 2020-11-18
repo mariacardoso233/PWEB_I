@@ -26,7 +26,7 @@
             </li>
         </ul>
 
-        <button v-on:click="addTeam('Braga',1923,'braga')">ADICIONAR EQUIPA</button>
+        <button v-on:click="addTeam('Braga',1923,'braga')">ADICIONAR EQUIPA</button> 
         <button v-on:click="filterLocation('lisboa')">FILTRAR EQUIPA</button>
 
         <table>
@@ -61,17 +61,22 @@
             },
             methods: {
                 addTeam(teamName, teamYear, teamLocation) {
+                    //Construção do array
                     const newTeam = {
                         name: teamName,
                         year: teamYear,
                         location: teamLocation}
                     this.teams.push(newTeam)
                 },
+
+                //Filtrar por localidade
                 filterLocation(newLocation) {
                     this.location = newLocation
                 }
             },
             computed:{
+
+                //filtro
                 filteredTeams(){
                     return this.teams.filter(
                         team => team.location === this.location || this.location == ''

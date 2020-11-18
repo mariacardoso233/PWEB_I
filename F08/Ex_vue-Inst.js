@@ -20,6 +20,7 @@ const vm = new Vue({
         castles: []
     },
 
+    //Criação da informação do array
     created() {
         this.castles = [
             {
@@ -213,6 +214,8 @@ const vm = new Vue({
                     break;
             }
         },
+
+        //ID do elemento do array
         getNextId() {
             //return this.castles.length ? this.castles[this.castles.length - 1].id + 1
             if (this.castles.length === 0) {
@@ -222,6 +225,7 @@ const vm = new Vue({
                 return this.castles[this.castles.length - 1].id + 1
             }
         },
+
         addCastle() {
             this.castles.push(
                 {
@@ -232,6 +236,7 @@ const vm = new Vue({
                 }
             )
         },
+
         //Chama a janela "dialog" e pré-preenche os campos do formulário
         editCastle(id) {
             //Exibir a janela de edição (o dialog do HTML)
@@ -278,6 +283,7 @@ const vm = new Vue({
 
         },
 
+        //Remover castelo com confirmação
         removeCastle(id) {
             if (confirm('Deseja remover o castelo?')) {
                 this.castles = this.castles.filter(
@@ -286,6 +292,8 @@ const vm = new Vue({
                 alert('Castelo removido com sucesso!')
             }
         },
+
+        //Ordenar o castelo por nome (Sort e Compare)
         sortCastles() {
             this.flagSortCastle = this.flagSortCastle * -1
             this.castles.sort(this.compareCastles)
@@ -298,6 +306,7 @@ const vm = new Vue({
     },
 
     computed: {
+        //Filtrar castelo pelo seu nome
         filteredCastles() {
             return this.castles.filter(
                 castle => castle.name.includes(this.frm.filter.name)
