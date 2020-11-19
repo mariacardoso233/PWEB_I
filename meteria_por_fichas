@@ -1,0 +1,47 @@
+-> Introdução a Vue - HelloVue, Ficha 1, Ficha 2
+-> Propriedades Calculadas - Ficha 3
+-> Manipulação de classes e estilos - Ficha 4
+-> Renderização - Ficha 4
+-> Eventos - Ficha 5
+-> Persistência dos dados no armazenamento local - Ficha 7, Ficha 6
+-> Tabelas e manipulação das mesmas - Ficha 7, Ficha 6
+-> Array de objetos - Ficha 8
+-> Manipulação de arrays(map, reduce, some, filter, every, find) - Ficha 8
+-> Componentes - Ficha 9
+
+
+
+includes() -> permite procurar consoante se escreve algo
+map() -> alterar dados no array
+some() -> permite verificar se pelo menos um obedece ao pedido
+
+
+//Criação do seletor pelo Vue_Inst -> ficha 8 e ficha 9 (getAll"Elemnts"By"QualquerElementoDoArray")
+                                    |
+                                    |
+Ficha_8 -> criou-se um array e o seletor vai buscar todos os elementos de valor diferentes no elemento "stadium"
+            para preencher o seletor -> o que irá obrigar-nos a criar uma função
+
+Ficha_9 -> criou-se um array e preenche-se o seletor com esse array criado -> irá nos obrigar apenas a criar um 
+            "v-for" no html
+
+
+//Permite aparecer o nome do elemento na tabela em vez do ID do elemento (estudantes e ucs)
+        getStudentNameById(id) {
+            return this.students.find(
+                student => student.id === id
+            ).name
+        },
+
+
+//Filtro composto -> Ficha Extra, F09 (Ex05), F07
+//Filtro apenas com um -> F08, F06
+
+Filtros:
+    Seletores: F_Extra, F09, F06
+    RadioButton: F07
+    TextBox: F08
+
+
+//Created() e destroyed() -> gravação e recuperação dos dados: F07, Ficha Extra
+

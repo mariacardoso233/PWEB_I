@@ -197,7 +197,7 @@ const vm = new Vue({
                                     return acc = acc + item.grade
                                 }
                             }, 0) / count
-                            ucsAverage.push({ uc: uc.name, average: isNaN(average) ? 0 : average })
+                        ucsAverage.push({ uc: uc.name, average: isNaN(average) ? 0 : average })
 
                     }
                 )
@@ -234,6 +234,11 @@ const vm = new Vue({
     },
 
     created() {
+        //Guardar dados na localStorage
+        if (localStorage.getItem('grades')) {
+            this.grades = JSON.parse(localStorage.getItem('grades'))
+        }
+
         //Criação dos arrays com informação sobre os estudantes e ucs
         this.students.push(
             { id: 1, name: 'Maria Baldaia' },
@@ -251,4 +256,14 @@ const vm = new Vue({
             { id: 5, name: 'Ergonomia' }
         )
     },
+
+    //Guardar dados na localStorage
+    destroyed() {
+        localStorage.setItem('grades', JSON.stringify(this.grades))
+    },
 })
+
+//Gravação e recuperação dos dados
+window.onunload = function () {
+    vm.$destroy()    
+}
