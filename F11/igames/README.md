@@ -1,4 +1,4 @@
-# ex3_visualtodo
+# igames
 
 ## Project setup
 ```
