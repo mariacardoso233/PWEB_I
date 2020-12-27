@@ -1,19 +1,14 @@
 <template>
   <div class="home">
-    <div>
-      <b-jumbotron
-        header="iGAMES"
-        lead="The best games app ever!"
-      >
-        <p>Start by adding games</p>
-        <b-button variant="primary" href="#">Add a game</b-button>
-      </b-jumbotron>
-    </div>
+    <h1>iGames</h1>
+    <p>Bem-vindo!</p>
+    <p>Começa a adicionar jogos na aplicação!</p>
   </div>
 </template>
 
 <script>
-export default {
-  name: "Home",
-};
+
+ export default {
+  name: "Home"
+}; 
 </script>
