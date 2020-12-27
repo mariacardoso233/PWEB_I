@@ -1,18 +1,23 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div id="home">
+      <h1>Area de autenticação </h1>
+      <h2>Username: {{getUser.username}}</h2>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  }
-};
+    name: 'Home',
+    computed: {
+        // obtenção dos dados do "getters" da store
+        // para aparecer na página "home" (informação do username)
+        getUser(){
+            return this.$store.getters.getLoggedUser
+        }
+    }
+}
 </script>
+
+<style>
+
+</style>
