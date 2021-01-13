@@ -13,9 +13,9 @@ export default new Vuex.Store({
           { username: "2", password: "2", location: "2" },
           { username: "3", password: "3", location: "3" }
         ],
-    loggedUser: localStorage.getItem('loggedUser') 
-    ? JSON.parse(localStorage.getItem('loggedUser'))
-    : ''
+    loggedUser: localStorage.getItem('loggedUser')
+      ? JSON.parse(localStorage.getItem('loggedUser'))
+      : ''
   },
   getters: {
     //Obtenção dos dados do user logado
@@ -47,13 +47,15 @@ export default new Vuex.Store({
 
     register(context, payload) {
       //Verificar se o user já existe
-      const user = context.state.users.find(user => user.username === payload.username)
+      const user = context.state.users.find(
+        (user) => user.username === payload.username
+      );
       if (user == undefined) {
-        //login com sucesso
+        //registo com sucesso
         context.commit('REGISTER', payload)
         localStorage.setItem('users', JSON.stringify(context.state.users))
       } else {
-        //login sem sucesso
+        //registo sem sucesso
         throw Error('Username já existente!!')
       }
     },

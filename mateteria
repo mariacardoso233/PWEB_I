@@ -1,0 +1,19 @@
+Componentes: algo que iremos utilizar ao longo da app - ex: Footer, Navbar, ....
+Views: páginas que vemos ao longo da app
+router: rotas de acesso da aplicação
+store: é um container que mantém o estado da aplicação
+    |
+    L> state: estado da aplicação, colocados todos os dados que queremos em memória e que vão ser acedidos por todos os componentes criados
+                Base de dados centralizada
+    |
+    L>getters: 
+    |
+    L>mutations: altera a base dados, altera o estado
+    |
+    L>actions: chamar mutações
+
+
+includes() -> permite procurar consoante se escreve algo
+map() -> alterar dados no array
+some() -> permite verificar se pelo menos um obedece ao pedido
+forEach() -> executa uma função fornecida uma vez para cada elemento do array.

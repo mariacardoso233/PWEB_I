@@ -71,6 +71,8 @@ export default {
         priority: 1
       };
     },
+
+    //Submissão do form 
     onSubmit() {
       const task = {
         id: this.$store.getters.getNextTaskId,
@@ -80,7 +82,7 @@ export default {
         resolved: false
       };
       this.$store.dispatch("saveTask", task);
-      this.showSuccess = true;
+      this.showSuccess = true;  //Mensagem
     }
   }
 };

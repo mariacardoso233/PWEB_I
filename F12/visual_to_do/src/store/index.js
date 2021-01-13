@@ -43,6 +43,8 @@ export default new Vuex.Store({
     getTasks: (state) => {
       return state.tasks;
     },
+
+    //Filtros
     getTasksFiltered: (state) => (_sort, _category) => {
       const tasks_filtered = state.tasks.filter(
         (task) => task.category == _category || _category == "all"
@@ -54,6 +56,8 @@ export default new Vuex.Store({
         return 0;
       });
     },
+
+    //Obtenção do id da task
     getNextTaskId: (state) => {
       return state.tasks.length > 0
         ? state.tasks[state.tasks.length - 1].id + 1
@@ -68,7 +72,7 @@ export default new Vuex.Store({
 
 
     SOLVE_TASK(state, id) {
-     
+      //Resolver tasks uma a uma
       state.tasks.forEach((task) => {
         if (task.id == id) {
           task.resolved = true;
@@ -78,6 +82,7 @@ export default new Vuex.Store({
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
 
+    //Remover tasks uma a uma
     REMOVE_TASK(state, id) {
       state.tasks = state.tasks.filter((task) => task.id != id);
 

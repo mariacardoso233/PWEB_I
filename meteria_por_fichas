@@ -10,12 +10,6 @@
 -> Componentes - Ficha 9
 
 
-
-includes() -> permite procurar consoante se escreve algo
-map() -> alterar dados no array
-some() -> permite verificar se pelo menos um obedece ao pedido
-
-
 //Criação do seletor pelo Vue_Inst -> ficha 8 e ficha 9 (getAll"Elemnts"By"QualquerElementoDoArray")
                                     |
                                     |
